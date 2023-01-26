@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from logging import FileHandler, WARNING
 import pickle
 import numpy as np
 
@@ -7,8 +6,6 @@ pickle.load(open('model.pkl', 'rb'))
 model = pickle.load(open('model.pkl', 'rb'))
 
 app = Flask(__name__)
-file_handler = FileHandler('errorlog.txt')
-file_handler.setLevel(WARNING)
 
 
 @app.route('/')
@@ -25,7 +22,7 @@ def predict():
     input_query = np.array(months, dtype=int).reshape(1, 12)
     prediction = model.predict(input_query)[0]
 
-    return jsonify({'flood': str(prediction)})
+    return jsonify({'prediction': str(prediction)})
 
 
 if __name__ == '__main__':
