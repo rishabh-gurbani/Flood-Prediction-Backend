@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from logging import FileHandler, WARNING
 import pickle
 import numpy as np
 
@@ -6,6 +7,8 @@ pickle.load(open('model.pkl', 'rb'))
 model = pickle.load(open('model.pkl', 'rb'))
 
 app = Flask(__name__)
+file_handler = FileHandler('errorlog.txt')
+file_handler.setLevel(WARNING)
 
 
 @app.route('/')
@@ -13,7 +16,7 @@ def home():
     return "hello world"
 
 
-@app.route('/predict', methods=['GET','POST'])
+@app.route('/predict', methods=['GET', 'POST'])
 def predict():
     mon = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT',
            'NOV', 'DEC']
