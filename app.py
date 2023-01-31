@@ -19,7 +19,7 @@ def predict():
            'NOV', 'DEC']
     months = [request.form.get(x) for x in mon]
 
-    input_query = np.array(months, dtype=int).reshape(1, 12)
+    input_query = np.array(months, dtype=float).reshape(1, 12)
     prediction = model.predict(input_query)[0]
 
     return jsonify({'prediction': str(prediction)})
